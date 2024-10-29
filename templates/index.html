@@ -10,35 +10,39 @@
     <style>
         /* Custom styles for dark mode toggle button */
         .theme-toggle {
-        transition: all 0.3s ease;
+            transition: all 0.3s ease;
         }
+
         .theme-toggle:hover {
-        background-color: #1f2937;
-        color: #60a5fa;
+            background-color: #1f2937;
+            color: #60a5fa;
         }
-        
+
         /* Light mode styles */
         html:not(.dark) body {
-        background-color: #f3f4f6;
-        color: #1f2937;
+            background-color: #f3f4f6;
+            color: #1f2937;
         }
-        
+
         html:not(.dark) .bg-gray-800 {
-        background-color: #e5e7eb;
+            background-color: #e5e7eb;
         }
-        
+
         html:not(.dark) .text-gray-300 {
-        color: #374151;
+            color: #374151;
         }
-        
+
         html:not(.dark) .text-gray-400 {
-        color: #4b5563;
+            color: #4b5563;
+        }
+
+        html:not(.dark) .text-gray-500 {
+            color: #6b7280;
         }
         
-        html:not(.dark) .text-gray-500 {
-        color: #6b7280;
-        }
-        </style>
+       
+        
+    </style>
     <script>
         // Script for toggling between dark and light modes
         function toggleTheme() {
@@ -97,8 +101,8 @@
             <button
                 class="theme-toggle rounded-full p-2 bg-gray-800 text-white hover:bg-gray-900 transition duration-300"
                 onclick="toggleTheme()">
-                <i class="fas fa-moon text-xl"></i>
-                <i class="fas fa-sun text-xl hidden"></i>
+                <i class="fas fa-moon  text-xl"></i>
+                <i class="fas fa-sun text-gray-300 text-xl hidden"></i>
             </button>
         </div>
     </nav>
@@ -106,21 +110,27 @@
     <!-- Main Section -->
     <main class="flex flex-col items-center justify-center min-h-screen space-y-10 px-4 text-center">
         <!-- Title and Subtitle -->
-        <h1 class="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-indigo-500 text-transparent bg-clip-text pb-1">
+        <h1
+            class="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-indigo-500 text-transparent bg-clip-text pb-1">
             Shorten Your Loooong Links :)
         </h1>
         <p class="text-gray-400 max-w-md">
             Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience.
         </p>
 
+
         <!-- URL Shortener Input and Button -->
         <div class="flex items-center bg-gray-800 rounded-full px-4 py-3 shadow-lg w-full max-w-xl">
+            <!-- Link icon added before the input field -->
+            <i class="fa-solid fa-link text-gray-40 text-lg mr-3"></i>
             <input type="url" placeholder="Enter the link here"
                 class="bg-transparent text-white flex-grow px-4 outline-none" required>
             <button class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">
                 Shorten Now!
             </button>
         </div>
+
+
 
         <!-- Additional Info -->
         <p class="text-gray-500 text-sm">
@@ -129,7 +139,7 @@
         </p>
     </main>
 
-  
+
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-500 py-4 text-center">
