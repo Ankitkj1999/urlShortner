@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <!-- Logo/Brand Text -->
+            <a href="/" class="text-2xl font-semibold text-blue-500">
+                ShortenIt
+            </a>
+            <!-- Login/Register Buttons -->
+            <div>
+                <a href="/login" class="text-gray-600 hover:text-blue-500 mr-4">Login</a>
+                <a href="/register" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto flex flex-col items-center justify-center min-h-screen px-4">
+        <!-- Title and Subtitle -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-700">Welcome to ShortenIt</h1>
+            <p class="text-gray-600">Your simple and reliable URL shortener service</p>
+        </div>
+
+        <!-- URL Shortener Input and Button -->
+        <div class="w-full max-w-lg bg-white shadow-lg rounded-lg p-6">
+            <form id="url-form" class="flex items-center space-x-2">
+                <input 
+                    type="url" 
+                    placeholder="Enter your URL here" 
+                    class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200"
+                    required
+                >
+                <button 
+                    type="submit"
+                    class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
+                >
+                    Shorten
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-200 py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 ShortenIt. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
