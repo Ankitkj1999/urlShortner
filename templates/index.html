@@ -1,60 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for dark mode toggle button */
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            background-color: #1f2937;
+            color: #60a5fa;
+        }
+        .dark .theme-toggle {
+            color: #4b5563;
+        }
+        .dark .theme-toggle:hover {
+            background-color: #4b5563;
+            color: #bfdbfe;
+        }
+    </style>
+    <script>
+        // Script for toggling between dark and light modes
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
 </head>
-<body class="bg-gray-100 text-gray-800">
-
+<body class="bg-gray-900 text-gray-200 font-sans">
+    
     <!-- Navbar -->
-    <nav class="bg-white shadow-md">
-        <div class="container mx-auto flex justify-between items-center py-4 px-6">
-            <!-- Logo/Brand Text -->
-            <a href="/" class="text-2xl font-semibold text-blue-500">
-                ShortenIt
+    <nav class="bg-transparent py-4 px-6 flex justify-between items-center">
+        <a href="#" class="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-indigo-500">
+            Linkly
+        </a>
+        <div class="flex items-center space-x-4">
+            <a href="/login" class="text-gray-300 hover:text-indigo-400">Login</a>
+            <a href="/register" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">
+                Register Now
             </a>
-            <!-- Login/Register Buttons -->
-            <div>
-                <a href="/login" class="text-gray-600 hover:text-blue-500 mr-4">Login</a>
-                <a href="/register" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Register</a>
-            </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="container mx-auto flex flex-col items-center justify-center min-h-screen px-4">
+    <!-- Main Section -->
+    <main class="flex flex-col items-center justify-center min-h-screen space-y-10 px-4 text-center">
         <!-- Title and Subtitle -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-700">Welcome to ShortenIt</h1>
-            <p class="text-gray-600">Your simple and reliable URL shortener service</p>
-        </div>
+        <h1 class="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-indigo-500 text-transparent bg-clip-text">
+            Shorten Your Loooong Links :)
+        </h1>
+        <p class="text-gray-400 max-w-md">
+            Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience.
+        </p>
 
         <!-- URL Shortener Input and Button -->
-        <div class="w-full max-w-lg bg-white shadow-lg rounded-lg p-6">
-            <form id="url-form" class="flex items-center space-x-2">
-                <input 
-                    type="url" 
-                    placeholder="Enter your URL here" 
-                    class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200"
-                    required
-                >
-                <button 
-                    type="submit"
-                    class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-colors"
-                >
-                    Shorten
-                </button>
-            </form>
+        <div class="flex items-center bg-gray-800 rounded-full px-4 py-3 shadow-lg w-full max-w-xl">
+            <input type="url" placeholder="Enter the link here" class="bg-transparent text-white flex-grow px-4 outline-none" required>
+            <button class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">
+                Shorten Now!
+            </button>
         </div>
+        
+        <!-- Additional Info -->
+        <p class="text-gray-500 text-sm">
+            Auto Paste from Clipboard • You can create <span class="text-blue-400 font-semibold">05 more links</span>. Register to enjoy Unlimited usage
+        </p>
     </main>
 
+    <!-- Dark/Light Mode Toggle Button -->
+    <div class="fixed right-5 top-1/2 transform -translate-y-1/2">
+        <button onclick="toggleTheme()" class="theme-toggle bg-gray-800 text-gray-400 rounded-full py-2 px-4 flex items-center flex-col shadow-lg">
+            <span class="text-sm font-semibold">Light</span>
+            <div class="h-6 w-12 bg-gray-700 rounded-full my-2 flex items-center justify-center">
+                <div class="w-5 h-5 rounded-full bg-blue-400 transition-transform transform translate-x-5"></div>
+            </div>
+            <span class="text-sm font-semibold">Dark</span>
+        </button>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-200 py-4">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2024 ShortenIt. All rights reserved.</p>
-        </div>
+    <footer class="bg-gray-800 text-gray-500 py-4 text-center">
+        <p>&copy; 2024 Linkly. All rights reserved.</p>
     </footer>
 
 </body>
