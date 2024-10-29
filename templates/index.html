@@ -1,53 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         /* Custom styles for dark mode toggle button */
         .theme-toggle {
-            transition: all 0.3s ease;
+        transition: all 0.3s ease;
         }
         .theme-toggle:hover {
-            background-color: #1f2937;
-            color: #60a5fa;
+        background-color: #1f2937;
+        color: #60a5fa;
         }
-        .dark .theme-toggle {
-            color: #4b5563;
+        
+        /* Light mode styles */
+        html:not(.dark) body {
+        background-color: #f3f4f6;
+        color: #1f2937;
         }
-        .dark .theme-toggle:hover {
-            background-color: #4b5563;
-            color: #bfdbfe;
+        
+        html:not(.dark) .bg-gray-800 {
+        background-color: #e5e7eb;
         }
-    </style>
+        
+        html:not(.dark) .text-gray-300 {
+        color: #374151;
+        }
+        
+        html:not(.dark) .text-gray-400 {
+        color: #4b5563;
+        }
+        
+        html:not(.dark) .text-gray-500 {
+        color: #6b7280;
+        }
+        </style>
     <script>
         // Script for toggling between dark and light modes
         function toggleTheme() {
+            console.log('Toggling theme');
             document.documentElement.classList.toggle('dark');
+            // Toggle icon visibility
+            const moonIcon = document.querySelector('.theme-toggle .fa-moon');
+            const sunIcon = document.querySelector('.theme-toggle .fa-sun');
+            moonIcon.classList.toggle('hidden');
+            sunIcon.classList.toggle('hidden');
         }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const html = document.documentElement;
+            const toggleButton = document.getElementById('themeToggle');
+            const toggleBall = document.getElementById('toggleBall');
+
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                html.classList.toggle('dark', savedTheme === 'dark');
+                toggleBall.classList.toggle('translate-x-5', savedTheme === 'dark');
+            }
+
+            toggleButton.addEventListener('click', function () {
+                console.log('Toggle clicked');
+
+                // Toggle dark class
+                html.classList.toggle('dark');
+
+                // Move the toggle ball
+                toggleBall.classList.toggle('translate-x-5');
+
+                // Save preference
+                localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            });
+        });
+    </script>
 </head>
+
 <body class="bg-gray-900 text-gray-200 font-sans">
-    
+
     <!-- Navbar -->
     <nav class="bg-transparent py-4 px-6 flex justify-between items-center">
-        <a href="#" class="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-indigo-500">
-            Linkly
+        <a href="#"
+            class="text-3xl font-bold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-indigo-500">
+            Cut.It
         </a>
         <div class="flex items-center space-x-4">
             <a href="/login" class="text-gray-300 hover:text-indigo-400">Login</a>
             <a href="/register" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">
                 Register Now
             </a>
+            <!-- Add the custom button here -->
+            <button
+                class="theme-toggle rounded-full p-2 bg-gray-800 text-white hover:bg-gray-900 transition duration-300"
+                onclick="toggleTheme()">
+                <i class="fas fa-moon text-xl"></i>
+                <i class="fas fa-sun text-xl hidden"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Main Section -->
     <main class="flex flex-col items-center justify-center min-h-screen space-y-10 px-4 text-center">
         <!-- Title and Subtitle -->
-        <h1 class="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-indigo-500 text-transparent bg-clip-text">
+        <h1 class="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-indigo-500 text-transparent bg-clip-text pb-1">
             Shorten Your Loooong Links :)
         </h1>
         <p class="text-gray-400 max-w-md">
@@ -56,28 +115,21 @@
 
         <!-- URL Shortener Input and Button -->
         <div class="flex items-center bg-gray-800 rounded-full px-4 py-3 shadow-lg w-full max-w-xl">
-            <input type="url" placeholder="Enter the link here" class="bg-transparent text-white flex-grow px-4 outline-none" required>
+            <input type="url" placeholder="Enter the link here"
+                class="bg-transparent text-white flex-grow px-4 outline-none" required>
             <button class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">
                 Shorten Now!
             </button>
         </div>
-        
+
         <!-- Additional Info -->
         <p class="text-gray-500 text-sm">
-            Auto Paste from Clipboard • You can create <span class="text-blue-400 font-semibold">05 more links</span>. Register to enjoy Unlimited usage
+            Auto Paste from Clipboard • You can create <span class="text-blue-400 font-semibold">05 more links</span>.
+            Register to enjoy Unlimited usage
         </p>
     </main>
 
-    <!-- Dark/Light Mode Toggle Button -->
-    <div class="fixed right-5 top-1/2 transform -translate-y-1/2">
-        <button onclick="toggleTheme()" class="theme-toggle bg-gray-800 text-gray-400 rounded-full py-2 px-4 flex items-center flex-col shadow-lg">
-            <span class="text-sm font-semibold">Light</span>
-            <div class="h-6 w-12 bg-gray-700 rounded-full my-2 flex items-center justify-center">
-                <div class="w-5 h-5 rounded-full bg-blue-400 transition-transform transform translate-x-5"></div>
-            </div>
-            <span class="text-sm font-semibold">Dark</span>
-        </button>
-    </div>
+  
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-500 py-4 text-center">
@@ -85,4 +137,5 @@
     </footer>
 
 </body>
+
 </html>
