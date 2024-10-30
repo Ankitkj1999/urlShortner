@@ -35,7 +35,6 @@
         }
 
 
-
         html:not(.dark) .bg-gray-800 {
             background-color: #e5e7eb;
         }
@@ -44,10 +43,13 @@
             color: #374151;
         }
 
+        .text-gray-400 {
+            color: #9ca3af;
+        }
+
         html:not(.dark) .text-gray-400 {
             color: #4b556300;
         }
-
 
 
         html:not(.dark) .text-gray-500 {
@@ -139,7 +141,7 @@
             class="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-indigo-500 text-transparent bg-clip-text pb-1">
             Shorten Your Loooong Links :)
         </h1>
-        <p class="text-gray-400 max-w-md">
+        <p class="text-gray-500 max-w-md">
             Cut.It is an efficient and easy-to-use URL shortening service that streamlines your online experience.
         </p>
 
@@ -166,17 +168,17 @@
 
         <!-- History Table -->
         <section class="mt-10 w-full max-w-7xl mx-auto px-4">
-            <h2 class="text-2xl font-semibold text-gray-300 mb-6">History (143)</h2>
+            <!-- <h2 class="text-2xl font-semibold text-gray-300 mb-6">History (143)</h2> -->
             <div class="overflow-x-auto bg-gray-800 rounded-lg shadow-lg">
                 <table class="min-w-full text-sm text-gray-400" style="table-layout: fixed;">
                     <thead>
                         <tr class="text-gray-600 text-left text-gray-500 uppercase tracking-wider   ">
                             <th class="py-3 px-6 w-1/4 text-white">Short Link</th>
                             <th class="py-3 px-6 w-1/4 text-white">Original Link</th>
-                            <th class="py-3 px-6 w-1/6 text-white">QR Code</th>
+                            <th class="py-3 px-6 w-1/6  text-center text-white">QR Code</th>
                             <th class="py-3 px-6 w-1/12 text-center text-white">Clicks</th>
-                            <th class="py-3 px-6 w-1/12 text-white">Status</th>
-                            <th class="py-3 px-6 w-1/6 text-white">Date</th>
+                            <th class="py-3 px-6 w-1/12  text-center text-white">Status</th>
+                            <th class="py-3 px-6 w-1/6  text-center text-white">Date</th>
                             <th class="py-3 px-6 w-1/12 text-white">Action</th>
                         </tr>
                     </thead>
@@ -187,7 +189,7 @@
                                 <div class="flex items-center space-x-2">
                                     <a href="#" class="text-blue-500 hover:underline">linkly.com/Bn41aC0lnxj</a>
                                     <button onclick="copyToClipboard('https://linkly.com/Bn41aC0lnxj')"
-                                        class="text-gray-400 hover:text-gray-300">
+                                        class="text-gray-500 hover:text-gray-300">
                                         <i class="fas fa-copy"></i>
                                     </button>
                                 </div>
