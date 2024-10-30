@@ -1,6 +1,7 @@
 # URL Shortener: Cut.it
 *A simple URL shortening tool that enables you to track counts and generate QR codes for easy access.*
 
+
 - [ ] **1:** User puts the full URL in the search bar.
 - [ ] **2:** Store that full URL and generate a random text or take input from the user for a unique identifier.
 - [ ] **3:** Save the full URL as the value and the unique short code as the key in Redis and PostgreSQL databases. Also, store the generation date.
