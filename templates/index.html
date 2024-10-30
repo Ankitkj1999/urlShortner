@@ -24,6 +24,18 @@
             color: #1f2937;
         }
 
+        /* white and balck text */
+        .text-white {
+            color: #c2c2c2;
+        }
+
+        html:not(.dark) .text-white {
+
+            color: #343434;
+        }
+
+
+
         html:not(.dark) .bg-gray-800 {
             background-color: #e5e7eb;
         }
@@ -33,15 +45,27 @@
         }
 
         html:not(.dark) .text-gray-400 {
-            color: #4b5563;
+            color: #4b556300;
         }
+
+
 
         html:not(.dark) .text-gray-500 {
             color: #6b7280;
         }
-        
-       
-        
+
+        html:not(.dark) .text-gray-600 {
+            color: rgba(107, 114, 128, 0.4);
+            /* Adding 80% opacity */
+        }
+
+        .qr-icon {
+            filter: invert(59%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(67%) contrast(85%);
+        }
+
+        html:not(.dark) .qr-icon {
+            filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+        }
     </style>
     <script>
         // Script for toggling between dark and light modes
@@ -97,14 +121,14 @@
             <a href="/register" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">
                 Register Now
             </a>
-            <!-- Add the custom button here -->
+            <!-- Them toggle button -->
             <button
-            class="theme-toggle rounded-full w-10 h-10 flex items-center justify-center bg-gray-800 text-white hover:bg-gray-900 transition duration-300"
-            onclick="toggleTheme()">
-            <i class="fas fa-moon text-xl"></i>
-            <i class="fas fa-sun text-gray-300 text-xl hidden"></i>
-        </button>
-        
+                class="theme-toggle rounded-full w-10 h-10 flex items-center justify-center bg-gray-800 text-white hover:bg-gray-900 transition duration-300"
+                onclick="toggleTheme()">
+                <i class="fas fa-moon text-xl"></i>
+                <i class="fas fa-sun text-gray-300 text-xl hidden"></i>
+            </button>
+
         </div>
     </nav>
 
@@ -116,12 +140,13 @@
             Shorten Your Loooong Links :)
         </h1>
         <p class="text-gray-400 max-w-md">
-            Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience.
+            Cut.It is an efficient and easy-to-use URL shortening service that streamlines your online experience.
         </p>
 
 
         <!-- URL Shortener Input and Button -->
-        <div class="flex items-center bg-gray-800 rounded-full px-4 py-3 shadow-lg w-full max-w-xl">
+        <div
+            class="flex items-center bg-gray-800 rounded-full px-4 py-3 shadow-lg w-full max-w-xl  border-2 border-gray-600">
             <!-- Link icon added before the input field -->
             <i class="fa-solid fa-link text-gray-40 text-lg mr-3"></i>
             <input type="url" placeholder="Enter the link here"
@@ -138,7 +163,141 @@
             Auto Paste from Clipboard • You can create <span class="text-blue-400 font-semibold">05 more links</span>.
             Register to enjoy Unlimited usage
         </p>
+
+        <!-- History Table -->
+        <section class="mt-10 w-full max-w-7xl mx-auto px-4">
+            <h2 class="text-2xl font-semibold text-gray-300 mb-6">History (143)</h2>
+            <div class="overflow-x-auto bg-gray-800 rounded-lg shadow-lg">
+                <table class="min-w-full text-sm text-gray-400" style="table-layout: fixed;">
+                    <thead>
+                        <tr class="text-gray-600 text-left text-gray-500 uppercase tracking-wider   ">
+                            <th class="py-3 px-6 w-1/4 text-white">Short Link</th>
+                            <th class="py-3 px-6 w-1/4 text-white">Original Link</th>
+                            <th class="py-3 px-6 w-1/6 text-white">QR Code</th>
+                            <th class="py-3 px-6 w-1/12 text-center text-white">Clicks</th>
+                            <th class="py-3 px-6 w-1/12 text-white">Status</th>
+                            <th class="py-3 px-6 w-1/6 text-white">Date</th>
+                            <th class="py-3 px-6 w-1/12 text-white">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTable">
+                        <tr class=" border-t  text-gray-600  ">
+                            <!-- Short URL Column -->
+                            <td class="py-4 px-6">
+                                <div class="flex items-center space-x-2">
+                                    <a href="#" class="text-blue-500 hover:underline">linkly.com/Bn41aC0lnxj</a>
+                                    <button onclick="copyToClipboard('https://linkly.com/Bn41aC0lnxj')"
+                                        class="text-gray-400 hover:text-gray-300">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </td>
+
+                            <!-- Original URL Column -->
+                            <td class="py-4 px-6">
+                                <div class="flex items-center space-x-2 truncate" style="max-width: 200px;">
+                                    <img class="favicon w-5 h-5 flex-shrink-0" alt="Favicon">
+                                    <a href="https://www.twitter.com/tweets/8erelCoihu" target="_blank"
+                                        class="text-blue-500 hover:underline truncate">
+                                        https://www.twitter.com/tweets/8erelCoihu
+                                    </a>
+                                </div>
+                            </td>
+
+                            <!-- QR Code Column -->
+                            <td class="py-4 px-6">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/QR_icon.svg/1200px-QR_icon.svg.png"
+                                    alt="QR Code" class="w-6 h-6 mx-auto qr-icon">
+                            </td>
+
+                            <!-- Clicks Column -->
+                            <td class="py-4 px-6 text-center">1313</td>
+
+                            <!-- Status Column -->
+                            <td class="py-4 px-6">
+                                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-500 text-green-100">
+                                    Active
+                                </span>
+                            </td>
+
+                            <!-- Date Column -->
+                            <td class="py-4 px-6">Oct 10, 2023</td>
+
+                            <!-- Actions Column -->
+                            <td class="py-4 px-6">
+                                <div class="flex space-x-2">
+                                    <button
+                                        class="theme-toggle rounded-full w-8 h-8 flex items-center justify-center bg-gray-700 text-white hover:bg-gray-800 transition duration-300 border border-gray-500">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                    <button
+                                        class="theme-toggle rounded-full w-8 h-8 flex items-center justify-center bg-gray-700 text-white hover:bg-gray-800 transition duration-300 border border-gray-500">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
     </main>
+
+
+    <script>
+        // Copy to Clipboard function
+        function copyToClipboard(text) {
+
+            navigator.clipboard.writeText(text).then(() => {
+
+                // Show a simple snalcbar notification with text copied
+                const snackbar = document.createElement('div');
+                snackbar.className = 'fixed bottom-10 left-1/2 transform -translate-x-1/2 text-center bg-gray-800 text-gray-400 px-4 py-2 rounded-md shadow-lg';
+                snackbar.textContent = 'Link copied to clipboard!';
+                document.body.appendChild(snackbar);
+
+                // Remove the snackbar notification after 3 seconds
+                setTimeout(() => {
+                    snackbar.remove();
+                }, 500);
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+
+        // Function to dynamically load favicons
+        function loadFavicons() {
+            // Select all rows with the "favicon" class
+            const rows = document.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const originalLinkCell = row.querySelector('td:nth-child(2)'); // Original link cell
+                const faviconImg = originalLinkCell.querySelector('.favicon');
+                const link = originalLinkCell.querySelector('a').href;
+
+                // Extract the base URL from the link
+                try {
+                    const url = new URL(link);
+                    const faviconUrl = `${url.origin}/favicon.ico`;
+
+                    // Set the favicon image source
+                    faviconImg.src = faviconUrl;
+                    faviconImg.onerror = () => {
+                        faviconImg.style.display = 'none'; // Hide if favicon not found
+                    };
+                } catch (error) {
+                    console.error("Invalid URL:", link, error);
+                }
+            });
+        }
+
+        // Call loadFavicons after the DOM has loaded
+        document.addEventListener('DOMContentLoaded', loadFavicons);
+    </script>
+
 
 
 
