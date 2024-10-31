@@ -11,6 +11,7 @@
 - [ ] **7:** Offer the ability to generate a QR code that redirects to either the short URL or the original full URL.
 - [ ] **8:** Include an edit option to allow users to change the unique alias (shortCode) and a delete option to remove the entry from the database.
 - [ ] **9:** Provide an option to enable or disable the short URL without actually deleting it from the database.
+- [ ] **10:** Implement authentication (Registeration & Login). We will keep it simple using email and OTP only.
 
 ### Demo Screenshots
 Light Mode | Dark Mode
