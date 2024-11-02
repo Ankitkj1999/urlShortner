@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Cut.It</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Light mode overrides */
+        html:not(.dark) body {
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        html:not(.dark) .bg-gray-800 {
+            background-color: #e5e7eb;
+        }
+
+        html:not(.dark) .text-gray-300 {
+            color: #374151;
+        }
+
+        /* OTP input styling */
+        .otp-input {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 0.5rem;
+            text-align: center;
+            border-radius: 0.5rem;
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+        }
+
+        /* Hide number input spinners */
+        .otp-input::-webkit-outer-spin-button,
+        .otp-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-200 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+        <!-- Auth Form Card -->
+        <div class="bg-gray-800 rounded-lg shadow-xl p-8">
+            <!-- Form Header -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold bg-gradient-to-r from-pink-500 to-indigo-500 text-transparent bg-clip-text"
+                    id="formTitle">
+                    Create Account
+                </h2>
+                <p class="text-gray-400 mt-2" id="formDescription">
+                    Enter your details to get started
+                </p>
+            </div>
+
+            <!-- Main Form -->
+            <form id="authForm" class="space-y-6">
+                <!-- Name Input (Only for Registration) -->
+                <div id="nameField" class="space-y-2">
+                    <label for="name" class="block text-sm font-medium text-gray-300">Full Name</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" id="name" name="name"
+                            class="bg-gray-700 block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:border-indigo-500 text-gray-300"
+                            placeholder="John Doe" required>
+                    </div>
+                </div>
+
+                <!-- Email Input -->
+                <div class="space-y-2">
+                    <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        <input type="email" id="email" name="email"
+                            class="bg-gray-700 block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md focus:outline-none focus:border-indigo-500 text-gray-300"
+                            placeholder="you@example.com" required>
+                    </div>
+                </div>
+
+                <!-- OTP Section (Initially Hidden) -->
+                <div id="otpSection" class="space-y-4 hidden">
+                    <div class="text-center">
+                        <label class="block text-sm font-medium text-gray-300 mb-4">Enter OTP sent to your email</label>
+                        <div class="flex justify-center gap-2">
+                            <input type="number" maxlength="1"
+                                class="otp-input bg-gray-700 border border-gray-600 text-center text-gray-300">
+                            <input type="number" maxlength="1"
+                                class="otp-input bg-gray-700 border border-gray-600 text-center text-gray-300">
+                            <input type="number" maxlength="1"
+                                class="otp-input bg-gray-700 border border-gray-600 text-center text-gray-300">
+                            <input type="number" maxlength="1"
+                                class="otp-input bg-gray-700 border border-gray-600 text-center text-gray-300">
+                        </div>
+                        <button type="button" id="resendOTP" disabled
+                            class="mt-4 text-sm text-indigo-400 hover:text-indigo-300 disabled:text-gray-500">
+                            Resend OTP in <span id="countdown">30</span>s
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitButton"
+                    class="w-full flex items-center justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">
+                    Create Account
+                </button>
+
+                <!-- Toggle Form Type -->
+                <div class="text-center text-sm">
+                    <p class="text-gray-400">
+                        <span id="toggleText">Already have an account?</span>
+                        <button type="button" id="toggleForm" class="text-indigo-400 hover:text-indigo-300 ml-1">
+                            Log in instead
+                        </button>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('authForm');
+            const nameField = document.getElementById('nameField');
+            const otpSection = document.getElementById('otpSection');
+            const toggleForm = document.getElementById('toggleForm');
+            const toggleText = document.getElementById('toggleText');
+            const formTitle = document.getElementById('formTitle');
+            const formDescription = document.getElementById('formDescription');
+            const submitButton = document.getElementById('submitButton');
+            const resendOTP = document.getElementById('resendOTP');
+            const countdownSpan = document.getElementById('countdown');
+            let isRegistration = true;
+            let countdownTimer;
+
+            // Handle OTP input
+            const otpInputs = document.querySelectorAll('.otp-input');
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    if (e.target.value) {
+                        if (index < otpInputs.length - 1) {
+                            otpInputs[index + 1].focus();
+                        }
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+            });
+
+            // Toggle between login and registration
+            toggleForm.addEventListener('click', () => {
+                isRegistration = !isRegistration;
+                nameField.classList.toggle('hidden');
+                formTitle.textContent = isRegistration ? 'Create Account' : 'Welcome Back';
+                formDescription.textContent = isRegistration ? 'Enter your details to get started' : 'Enter your email to sign in';
+                submitButton.textContent = isRegistration ? 'Create Account' : 'Login';
+                toggleText.textContent = isRegistration ? "Already have an account?" : "Don't have an account?";
+                toggleForm.textContent = isRegistration ? "Log in instead" : "Register instead";
+                otpSection.classList.add('hidden');
+            });
+
+            // Handle form submission
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                otpSection.classList.remove('hidden');
+                submitButton.textContent = 'Verify OTP';
+                startCountdown();
+            });
+
+            // Countdown timer for OTP resend
+            function startCountdown() {
+                let timeLeft = 30;
+                resendOTP.disabled = true;
+
+                countdownTimer = setInterval(() => {
+                    timeLeft--;
+                    countdownSpan.textContent = timeLeft;
+
+                    if (timeLeft <= 0) {
+                        clearInterval(countdownTimer);
+                        resendOTP.disabled = false;
+                        resendOTP.textContent = 'Resend OTP';
+                    }
+                }, 1000);
+            }
+
+            // Handle OTP resend
+            resendOTP.addEventListener('click', () => {
+                if (!resendOTP.disabled) {
+                    startCountdown();
+                    // Add your OTP resend logic here
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
