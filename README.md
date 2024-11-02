@@ -16,3 +16,7 @@
 Light Mode | Dark Mode
 :---------:|:---------:
 ![Light Mode](assets/demo_light.png) | ![Dark Mode](assets/demo_dark.png)
+
+Login | Registration
+:---------:|:---------:
+![Login](assets/login.png) | ![Registration](assets/registeration.png)
